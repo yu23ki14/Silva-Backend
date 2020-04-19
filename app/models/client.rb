@@ -7,6 +7,7 @@ class Client < ApplicationRecord
 
   has_many :statuses
   has_many :actions
+  has_many :invitations
 
   enum grade: {P: 0, G3: 1, G2: 2, G1: 3, N2: 4, N1: 5}
   enum gender: {F: 0, M: 1}

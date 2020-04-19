@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_09_150612) do
+ActiveRecord::Schema.define(version: 2020_04_18_132400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,20 @@ ActiveRecord::Schema.define(version: 2020_04_09_150612) do
     t.integer "grade"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "invitations", force: :cascade do |t|
+    t.text "uid"
+    t.bigint "client_id"
+    t.integer "role"
+    t.text "email"
+    t.bigint "user_id"
+    t.integer "from_user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_invitations_on_client_id"
+    t.index ["uid"], name: "index_invitations_on_uid", unique: true
+    t.index ["user_id"], name: "index_invitations_on_user_id"
   end
 
   create_table "statuses", force: :cascade do |t|

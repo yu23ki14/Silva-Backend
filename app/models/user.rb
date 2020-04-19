@@ -12,4 +12,7 @@ class User < ActiveRecord::Base
 
   has_many :statuses
   has_many :actions
+
+  has_many :invitations
+  has_many :invites, class_name: "invitation", foreign_key: "from_user_id"
 end

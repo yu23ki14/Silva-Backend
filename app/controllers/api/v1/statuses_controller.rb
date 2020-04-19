@@ -7,6 +7,7 @@ class Api::V1::StatusesController < ApplicationController
   def create
     @status = Status.new(status_params)
     if @status.save
+      NotificationMailer.update_status_notification(@users, @client).deliver_now
       render json: @status, status: 200
     else
       render json: @status.errors, status: 500
@@ -38,7 +39,8 @@ class Api::V1::StatusesController < ApplicationController
   end
 
   def authenticate_user
-    render json: {status: 401, message: '権限がありません。'}, status: 401 unless @client.users.map{|user| user.id}.include?(current_api_v1_user.id)
+    @users = @client.users
+    render json: {status: 401, message: '権限がありません。'}, status: 401 unless @users.map{|user| user.id}.include?(current_api_v1_user.id)
   end
 
   def status_params

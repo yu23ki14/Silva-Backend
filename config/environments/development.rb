@@ -57,9 +57,7 @@ Rails.application.configure do
     #gmailのユーザアカウント（xxxx@gmail.com)※念のため、credentials.yml.enc行き
     user_name: ENV['MAILUSERNAME'],
     #gmail２段階認証回避のためにアプリケーションでの利用パスワードを取得、必ずcredentials.yml.endに設定を！！
-    password: ENV['MAILPASSWORD'],
-    #パスワードをBase64でエンコード
-    authentication: :login
+    password: ENV['MAILPASSWORD']
   }
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true

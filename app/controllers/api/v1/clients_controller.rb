@@ -4,10 +4,11 @@ class Api::V1::ClientsController < ApplicationController
   before_action :authenticate_user, only: [:update, :show]
 
   def show
-    @statuses = @client.statuses.order(updated_at: :desc)
-    @actions = @client.actions.order(updated_at: :desc)
-    @team = @client.user_clients.map{|user_client| {role: user_client.role, user: user_client.user, action: @actions.where(user_id: user_client.user_id).where(role: user_client.role).limit(1)}}
-    render json: {client: @client, statuses: @statuses, actions: @actions, team: @team}, status: 200
+    statuses = @client.statuses.order(updated_at: :desc)
+    actions = @client.actions.order(updated_at: :desc)
+    team = @client.user_clients.map{|user_client| {role: user_client.role, user: user_client.user, action: actions.where(user_id: user_client.user_id).where(role: user_client.role).limit(1)}}
+    @client.invitations.map{|invitation| team.push({role: invitation.role, user: invitation.user.as_json.merge(inviting: true), action: {}})}
+    render json: {client: @client.as_json(include: [:underlying_illnesses]), statuses: statuses, actions: actions, team: team}, status: 200
   end
 
   def create
@@ -41,8 +42,8 @@ class Api::V1::ClientsController < ApplicationController
           @client_illness.save
         end
       end
-      NotificationMailer.with(users: @users, client: @client, type: 'grade').alert_notification.deliver_later
-      render json: @client, status: 200
+      NotificationMailer.update_grade_notification(@users, @client).deliver_now if grade_updated
+      render json: @client.as_json(include: [:statuses, :underlying_illnesses]), status: 200
     else
       render json: @client.errors, status: 500
     end

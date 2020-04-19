@@ -17,6 +17,11 @@ Rails.application.routes.draw do
       resources :clients
       resources :statuses
       resources :actions
+      resources :invitations do
+        collection do
+          post 'answer', to: 'invitations#answer'
+        end
+      end
     end
   end
 end

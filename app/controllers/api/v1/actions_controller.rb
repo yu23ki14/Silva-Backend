@@ -7,7 +7,7 @@ class Api::V1::ActionsController < ApplicationController
   def create
     @action = Action.new(action_params)
     if @action.save
-      # EmailNotificationJob.perform_later(message: 'some_filter')
+      NotificationMailer.update_action_notification(@users, @client, @action).deliver_now
       render json: @action, status: 200
     else
       render json: @action.errors, status: 500
@@ -39,7 +39,8 @@ class Api::V1::ActionsController < ApplicationController
   end
 
   def authenticate_user
-    render json: {status: 401, message: '権限がありません。'}, status: 401 unless @client.users.map{|user| user.id}.include?(current_api_v1_user.id)
+    @users = @client.users
+    render json: {status: 401, message: '権限がありません。'}, status: 401 unless @users.map{|user| user.id}.include?(current_api_v1_user.id)
   end
 
   def action_params

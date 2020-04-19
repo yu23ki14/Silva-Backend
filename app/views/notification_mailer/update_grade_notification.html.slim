@@ -1,0 +1,15 @@
+h2
+  |患者さんのクラスが#{@client.grade}に更新されました。
+
+h2 患者さん情報
+p
+  |姓イニシャル：#{@client.initial}
+  br
+  |性別：#{@client.gender}
+  br
+  |年齢：#{@client.age}
+  br
+  |住まい：#{@client.address}
+br
+a(href="#{ENV['APP_URL']}")
+  |#{ENV['APP_URL']}
