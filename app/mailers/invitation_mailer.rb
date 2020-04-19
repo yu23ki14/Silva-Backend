@@ -1,5 +1,5 @@
 class InvitationMailer < ApplicationMailer
-  default from: 'Silva運営事務局'
+  default from: "#{ENV['MAILUSERNAME']}"
 
   def silva_invitation(email, from_user, url)
     @url = url
