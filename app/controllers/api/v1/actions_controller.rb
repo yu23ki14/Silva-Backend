@@ -7,7 +7,7 @@ class Api::V1::ActionsController < ApplicationController
   def create
     @action = Action.new(action_params)
     if @action.save
-      NotificationMailer.update_action_notification(@users, @client, @action).deliver_now
+      NotificationMailer.update_action_notification(@users, @client, @action).deliver
       render json: @action, status: 200
     else
       render json: @action.errors, status: 500
