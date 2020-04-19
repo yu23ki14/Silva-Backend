@@ -82,7 +82,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.action_mailer.default_url_options = {  host: ENV['API_URL'] }
+  config.action_mailer.default_url_options = {  host: ENV['APP_URL'] }
   #送信方法を指定（この他に:sendmail/:file/:testなどがあります)
   config.action_mailer.delivery_method = :smtp
   #送信方法として:smtpを指定した場合は、このconfigを使って送信詳細の設定を行います
