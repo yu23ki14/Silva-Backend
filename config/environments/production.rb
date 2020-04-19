@@ -90,7 +90,7 @@ Rails.application.configure do
     #gmail利用時はaddress,domain,portは下記で固定
     address:"smtp.gmail.com",
     domain: 'heroku.com',
-    authentication: "plain"
+    authentication: "plain",
     port:587,
     #gmailのユーザアカウント（xxxx@gmail.com)※念のため、credentials.yml.enc行き
     user_name: ENV['MAILUSERNAME'],
