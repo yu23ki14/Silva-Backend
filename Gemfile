@@ -29,7 +29,7 @@ gem 'rack-cors', '~> 1.1', '>= 1.1.1'
 
 gem 'devise', '~> 4.7', '>= 4.7.1'
 gem 'devise_token_auth', '~> 1.1', '>= 1.1.3'
-gem 'omniauth', '~> 1.9', '>= 1.9.1'
+gem 'omniauth', '~> 1.9'
 
 gem 'enum_help', '~> 0.0.17'
 
